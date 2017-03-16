@@ -5,6 +5,9 @@
 
 #include "framebuffer.h"
 #include "imageIO.h"
+#include <sys/ioctl.h>
+#include <sys/kd.h>
+
 
 
 std::string imageFile = "";
@@ -102,11 +105,14 @@ int main(int argc, char * argv[])
 		std::cout << "\e[?1;0;127c";
 	}
 	
+	//disable screen courser
+	ioctl(0, KDSETMODE, KD_GRAPHICS);
 	//clear framebuffer to black
 	uint32_t inColor = 0;
 	uint8_t * clearColor = frameBuffer->convertToFramebufferFormat((const uint8_t *)&inColor, Framebuffer::X8R8G8B8);
 	frameBuffer->clear(clearColor);
 	delete [] clearColor;
+	
 	
 	//display the image centered on screen
 	uint32_t x = width < frameBuffer->getWidth() ? (frameBuffer->getWidth() - width) / 2 : 0;
@@ -128,7 +134,9 @@ int main(int argc, char * argv[])
 		//wait for longer than the display refresh, else the image might not reach the device?!... wtf.
 		usleep(100*1000);
 	}
-
+	//enable screen courser again
+	//ioctl(0, KDSETMODE, KD_TEXT);
+	
 	return 0;
 }
 
