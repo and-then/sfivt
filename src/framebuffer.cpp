@@ -84,6 +84,8 @@ void Framebuffer::create(uint32_t width, uint32_t height, uint32_t bitsPerPixel,
 	
 	//try to match an internal pixel format to the mode we got
 	m_format = screenInfoToPixelFormat(m_currentMode);
+	// fix rpi blue screen, unknown why
+	m_format = X8R8G8B8;
 	//check if we can use it
 	if (m_format == BAD_PIXELFORMAT) {
 		std::cout << "Unusable pixel format!" << std::endl;
