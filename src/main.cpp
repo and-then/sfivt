@@ -105,13 +105,13 @@ int main(int argc, char * argv[])
 		std::cout << "\e[?1;0;127c";
 	}
 	
-	//disable screen courser
-	ioctl(0, KDSETMODE, KD_GRAPHICS);
 	//clear framebuffer to black
 	uint32_t inColor = 0;
 	uint8_t * clearColor = frameBuffer->convertToFramebufferFormat((const uint8_t *)&inColor, Framebuffer::X8R8G8B8);
 	frameBuffer->clear(clearColor);
 	delete [] clearColor;
+	//disable screen courser
+	ioctl(0, KDSETMODE, KD_GRAPHICS);
 	
 	
 	//display the image centered on screen
