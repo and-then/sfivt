@@ -7,7 +7,7 @@
 #include "imageIO.h"
 #include <sys/ioctl.h>
 #include <sys/kd.h>
-
+#include <sys/stat.h.>
 
 
 std::string imageFile = "";
@@ -100,7 +100,7 @@ int main(int argc, char * argv[])
 	}
 	
 	//disable screen cursor
-	fbfd = open(frameBufferDevice, O_RDWR);
+	fbfd = open("/dev/tty1", O_RDWR);
 	ioctl(fbfd, KDSETMODE, KD_GRAPHICS);
 	
 	//clear framebuffer to black
