@@ -100,7 +100,7 @@ int main(int argc, char * argv[])
 	}
 	
 	//disable screen cursor
-	fbfd = open("/dev/tty1", O_RDWR);
+	int fbfd = open("/dev/tty1", O_RDWR);
 	ioctl(fbfd, KDSETMODE, KD_GRAPHICS);
 	
 	//clear framebuffer to black
